@@ -1,91 +1,13 @@
 import React, { Component } from 'react';
 import {DropdownButton, MenuItem} from 'react-bootstrap'
 import {Grid, Row, Col} from 'react-bootstrap'
-import Autosuggest from 'react-autosuggest';
-import SearchComponent from './SearchComponent.js'
-
-// Imagine you have a list of languages that you'd like to autosuggest.
-const languages = [
-  {
-    name: 'AC',
-    year: 1972
-  },
-  {
-    name: 'AElm',
-    year: 2012
-  }
-];
-
-// Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = value => {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0 ? [] : languages.filter(lang =>
-    lang.name.toLowerCase().slice(0, inputLength) === inputValue
-  );
-};
-
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.name;
-
-// Use your imagination to render suggestions.
-const renderSuggestion = suggestion => (
-  <div>
-    {suggestion.name}
-  </div>
-);
+import {Typeahead} from 'react-bootstrap-typeahead'
 
 class PageHeaderSectionComponent extends Component {
 
-  constructor() {
-      super();
-
-      // Autosuggest is a controlled component.
-      // This means that you need to provide an input value
-      // and an onChange handler that updates this value (see below).
-      // Suggestions also need to be provided to the Autosuggest,
-      // and they are initially empty because the Autosuggest is closed.
-      this.state = {
-        value: '',
-        suggestions: []
-      };
-    }
-
-    onChange = (event, { newValue }) => {
-      this.setState({
-        value: newValue
-      });
-    };
-
-    // Autosuggest will call this function every time you need to update suggestions.
-    // You already implemented this logic above, so just use it.
-    onSuggestionsFetchRequested = ({ value }) => {
-      this.setState({
-        suggestions: getSuggestions(value)
-      });
-    };
-
-    // Autosuggest will call this function every time you need to clear suggestions.
-    onSuggestionsClearRequested = () => {
-      this.setState({
-        suggestions: []
-      });
-    };
-
-
   render() {
 
-    const { value, suggestions } = this.state;
-
-    // Autosuggest will pass through all these props to the input.
-    const inputProps = {
-      placeholder: 'Type a programming language',
-      value,
-      onChange: this.onChange
-    };
+    var options =["AGARTALA","AGRA","AHMEDABAD","AIZAWL","AJMER","ALAPPUZHA","AMBALA","AMRITSAR","ANAND","BANGALORE","BARPETA","BASTAR","BEHRAMPUR","BENGALURU","BHARUCH","BHAVNAGAR","BHIWANI","BHUBANESWAR","BILASPUR","BURLA","CACHAR","CENTRAL DELHI","CHANDIGARH","CHENNAI","CHINNA SEERAGAPADI","COCHIN","COLACHEL","CUTTACK","DADRA AND NAGAR","DAMAN","DARBHANGA","DEHRADUN","DIBRUGARH","DURG","EAST DELHI","FARIDABAD","FATEHABAD","GANGTOK","GAYA","GHAZIABAD","GOA","GODAVARI","GODHRA","GORIMEDU","GREATER NOIDA","GURGAON","HALDWANI","HATHRAS","HAZARIBAGH","HISAR","HOSHIARPUR","HYDERABAD","IMPHAL","INDORE","JAIPUR","JALANDHAR","JAMMU","JAMNAGAR","JAMSHEDPUR","JHAJJAR","JIND","JODHPUR","JORHAT","KALAPET","KAMRUP","KANGRA","KANNUR","KANPUR","KANYAKUMARI","KARAKONAM","KARNAL","KAVARATTI","KOCHI","KOHIMA","KOLENCHERRY","KOLKATA","KOLLAM","KOTTAYAM","KOZHIKODE","KRISHNA","KUDUPAKKAM","KURUKSHETRA","LOWER SUBANSIRI","LUCKNOW","LUDHIANA","MADAGADIPET","MAHENDERGARH","MANGALORE","MANIPUR","MEERUT","MODAKKALLUR","MOHALI","MORADABAD","MUMBAI","MUZAFFARNAGAR","MUZAFFARPUR","NAGERCOIL","NARNAUL","NEW DELHI","NOIDA","NORTH DELHI","NORTH EAST DELHI","NORTH GOA","NORTH WEST DELHI","PALAKKAD","PALWAL","PANCHKULA","PANGOOR","PANIPAT","PATHANAMTHITTA","PATIALA","PATNA","PERINTALMANNA","PILLAIYARKUPPAM","PUDUCHERRY","PUNE","RAIPUR","RAJKOT","RANCHI","REWARI","RISHIKESH","ROHTAK","ROORKEE","ROPAR","ROURKELA","SAHARANPUR","SECUNDERABAD","SHILLONG","SHIMLA","SIRSA","SONIPAT","SONITPUR","SOUTH ANDAMAN","SOUTH DELHI","SOUTH EAST DELHI","SOUTH GOA","SOUTH WEST DELHI","SRINAGAR","SURAT","SURENDRANAGAR","TAWANG","THANE","THIRUVALLA","THIRUVANANTHAPURAM","THRISSUR","TOHANA","UPPER SUBANSIRI","VADODARA","VARANASI","VELLORE","VENJARAMOODU","VISAKHAPATNAM","WEST DELHI","YAMUNANAGAR","ZIRAKPUR"];
 
     return (
       <header id="page-header">
@@ -95,19 +17,13 @@ class PageHeaderSectionComponent extends Component {
                   <hr/>
                   <Grid>
                     <Row>
-                      <Col md={{size:2, offset:2}} >
-                        <Autosuggest
-                            suggestions={suggestions}
-                            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                            getSuggestionValue={getSuggestionValue}
-                            renderSuggestion={renderSuggestion}
-                            inputProps={inputProps}
-                          />
-                      </Col>
-                      <Col md={4}>
-                        <SearchComponent />
-                      </Col>
+                       <Col md={4} mdOffset={4}>
+                         <form>
+                            <div className="form-group">
+                              <Typeahead labelKey="SearchBox"  id="searchBoxTypeHead" options={options} className="form-control" placeholder="CityName" />
+                            </div>
+                         </form>
+                       </Col>
                     </Row>
                   </Grid>
                   <p > We are helping you in finding best hospital around you</p>
