@@ -8,54 +8,71 @@ import BasePageComponent from './BasePageComponent.js'
 import PageHeaderSectionComponent from './PageHeaderSectionComponent.js'
 import ContactSectionComponent from './ContactSectionComponent.js';
 import HospitalsComponent from './HospitalsComponent.js';
+import HospitalPageComponent from './components/HospitalPageComponent.js'
 
 class App extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = { currentViewName : "Home", searchResult: ''};
-    this.changeView = this.changeView.bind(this);
+    this.state = { currentViewName : "BaseView",
+                   searchResult: '',
+                   hospitalId: ''
+                 };
+
+    this.handleSectionChange = this.handleSectionChange.bind(this);
     this.fetchCurrentView = this.fetchCurrentView.bind(this);
     this.handleSearchResult = this.handleSearchResult.bind(this);
+    this.handleSelectedHospital = this.handleSelectedHospital.bind(this);
+    this.fetchCurrentView = this.fetchCurrentView.bind(this);
   }
 
-  changeView(newView) {
+  handleSectionChange(newView) {
     var baseUrl = window.location.origin;
     window.location.href = baseUrl + "/#" + newView;
     this.setState({
-      currentViewName : newView,
+      currentViewName : 'BaseView',
       searchResult: ''
     });
   }
 
-  fetchCurrentView(currentViewName) {
-    switch (currentViewName) {
-      case "Home":
-        return <BasePageComponent />
-      case "About":
-        return <ContactSectionComponent />
-      default:
-        return <BasePageComponent />
-    }
-  }
-
   handleSearchResult(result) {
     this.setState({
+      currentViewName: 'HospitalsView',
       searchResult: result
     });
   }
 
+  handleSelectedHospital(hospitalId) {
+    console.log("Got hospital id");
+    console.log(hospitalId);
+    this.setState({
+      currentViewName: 'HospitalDetailView',
+      hospitalId: hospitalId
+    });
+  }
+
+  fetchCurrentView() {
+    switch (this.state.currentViewName) {
+      case "BaseView":
+        return <BasePageComponent handleSearchResult={this.handleSearchResult}/>
+      case "HospitalsView":
+        return <HospitalsComponent cityName={this.state.searchResult} handleSelectedHospital={this.handleSelectedHospital}/>
+      case "HospitalDetailView":
+        console.log(this.state.hospitalId)
+        return <HospitalPageComponent hospitalId={this.state.hospitalId} />
+      default:
+        return <BasePageComponent handleSearchResult={this.handleSearchResult}/>
+    }
+  }
+
   render() {
 
-    let currentView =  <BasePageComponent handleSearchResult={this.handleSearchResult}/>
-    if(this.state.searchResult) {
-      currentView = <HospitalsComponent cityName={this.state.searchResult}/>
-    }
+    var currentView = this.fetchCurrentView();
 
     return (
       <div>
-        <NavigationMenu onChange={this.changeView}/>
+        <NavigationMenu onChange={this.handleSectionChange}/>
         {currentView}
         <FooterComponent/>
       </div>

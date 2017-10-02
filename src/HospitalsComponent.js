@@ -4,7 +4,10 @@ import * as constants from './Constants.js';
 
 const AddressDetail = (props) => {
 
-  var hospitalWebsite = "http://" + props.contacts.hosptialWebSite;
+  var hospitalWebsite = props.contacts.hosptialWebSite;
+  if(hospitalWebsite.indexOf("http") == -1) {
+    hospitalWebsite = "http://" + hospitalWebsite;
+  }
 
   return (
     <address style={{fontSize: "120%"}}>
@@ -25,8 +28,6 @@ const HospitalDetail = (props) => {
     medicineTypes.push(<h5 key={medType}><span>{medType}</span></h5>)
   }
 
-  console.log("Printing details of hospital");
-
   var imageUrl = constants.IMAGE_BASE_URL + "getImage.php?in=" + props.hospital.name;
 
   return (
@@ -39,7 +40,7 @@ const HospitalDetail = (props) => {
             <h3> {props.hospital.displayName} </h3>
             {medicineTypes}
             <AddressDetail address={props.hospital.address} contacts={props.hospital.contactDetails}/>
-            <a type="button" className="btn btn-primary">View Hospital <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <a type="button" className="btn btn-primary" onClick={() => props.onClick(props.hospital.uid)}>View Hospital <span class="glyphicon glyphicon-chevron-right"></span></a>
           </Col>
        </Row>
        <hr/>
@@ -53,6 +54,11 @@ class HospitalsComponent extends React.Component {
     super(props);
     this.state = { hospitals : [], cityName: ''};
     this.state.cityName = this.props.cityName;
+    this.handleHospitalViewClick = this.handleHospitalViewClick.bind(this);
+  }
+
+  handleHospitalViewClick(hospitalId) {
+    this.props.handleSelectedHospital(hospitalId);
   }
 
   componentDidMount() {
@@ -66,15 +72,11 @@ class HospitalsComponent extends React.Component {
 
   render() {
 
-
     const hospitalComponents = [];
     for(var i=0; i < this.state.hospitals.length ; i++) {
       var hospital = this.state.hospitals[i];
-      hospitalComponents.push(<HospitalDetail key={hospital.uid} hospital={hospital}/>);
+      hospitalComponents.push(<HospitalDetail key={hospital.uid} hospital={hospital} onClick={this.handleHospitalViewClick}/>);
     }
-
-    console.log("Rendering again " );
-    console.log(hospitalComponents);
 
     return (
       <Grid>
