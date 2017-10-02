@@ -7,22 +7,25 @@ import FooterComponent from './FooterComponent.js'
 import BasePageComponent from './BasePageComponent.js'
 import PageHeaderSectionComponent from './PageHeaderSectionComponent.js'
 import ContactSectionComponent from './ContactSectionComponent.js';
+import HospitalsComponent from './HospitalsComponent.js';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
 
-    this.state = { currentViewName : "Home"};
+    this.state = { currentViewName : "Home", searchResult: ''};
     this.changeView = this.changeView.bind(this);
     this.fetchCurrentView = this.fetchCurrentView.bind(this);
+    this.handleSearchResult = this.handleSearchResult.bind(this);
   }
 
   changeView(newView) {
     var baseUrl = window.location.origin;
     window.location.href = baseUrl + "/#" + newView;
     this.setState({
-      currentViewName : newView
+      currentViewName : newView,
+      searchResult: ''
     });
   }
 
@@ -37,12 +40,23 @@ class App extends Component {
     }
   }
 
+  handleSearchResult(result) {
+    this.setState({
+      searchResult: result
+    });
+  }
+
   render() {
+
+    let currentView =  <BasePageComponent handleSearchResult={this.handleSearchResult}/>
+    if(this.state.searchResult) {
+      currentView = <HospitalsComponent cityName={this.state.searchResult}/>
+    }
 
     return (
       <div>
         <NavigationMenu onChange={this.changeView}/>
-        <BasePageComponent />
+        {currentView}
         <FooterComponent/>
       </div>
     );
