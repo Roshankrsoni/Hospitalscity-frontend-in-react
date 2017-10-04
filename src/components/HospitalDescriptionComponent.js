@@ -1,5 +1,6 @@
 import React from 'react';
 import {Grid, Row, Col, Nav, NavItem} from 'react-bootstrap';
+import HospitalReviewComponent from './HospitalReviewComponent.js'
 
 class HospitalDescriptionComponent extends React.Component {
 
@@ -60,14 +61,14 @@ class HospitalDescriptionComponent extends React.Component {
       </div>);
     } else if(this.state.selectedTab == 'Review') {
       currentTabView = (<div role="tabpanel" class="tab-pane fade " id="tab-review">
-
+        <HospitalReviewComponent hospital={this.props.hospital}/>
       </div>);
     }
 
     return (
       <Col sm={12}>
         <p></p>
-        <Nav bsStyle="tabs" activeKey="Facilities" onSelect={this.handleTab}>
+        <Nav bsStyle="tabs" onSelect={this.handleTab}>
           <NavItem eventKey="Facilities" >Facilities</NavItem>
           <NavItem eventKey="Specialities" >Specialities</NavItem>
           <NavItem eventKey="Review" >Review</NavItem>

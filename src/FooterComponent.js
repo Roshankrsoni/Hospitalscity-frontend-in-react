@@ -20,17 +20,21 @@ class FooterComponent extends Component {
       {link:"#", className:"fa fa-fw fa-dribbble"}
     ];
 
-    const socailSiteRefLinks = socialSiteRefs.map(socialSiteRef => {
-      <li>
-          <a href={socialSiteRef.link} class="btn-social btn-outline"><i class={socialSiteRef.className}></i></a>
-      </li>
-    });
+    var socailSiteRefLinksComponent = [];
+    for(var i=0; i< socialSiteRefs.length; i++) {
+      var socialSiteRef = socialSiteRefs[i];
+      socailSiteRefLinksComponent.push(
+        <li>
+            <a target="_blank" href={socialSiteRef.link} className="btn-social btn-outline"><i className={socialSiteRef.className}></i></a>
+        </li>
+      );
+    }
 
     const socialInFooter = (
       <Col xs={12} md={4} className="footer-col">
           <h3>Around the Web</h3>
           <ul className="list-inline">
-              {socailSiteRefLinks}
+              {socailSiteRefLinksComponent}
           </ul>
       </Col>
     );
