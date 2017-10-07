@@ -7,7 +7,7 @@ class HospitalAddressComponent extends React.Component {
        return <div> </div>
      }
 
-     var hospitalWebsite = this.props.contacts.hosptialWebSite;
+     var hospitalWebsite = this.props.contacts.website;
      if(hospitalWebsite.indexOf("http") == -1) {
        hospitalWebsite = "http://" + hospitalWebsite;
      }
@@ -22,10 +22,10 @@ class HospitalAddressComponent extends React.Component {
                 <i className="fa fa-map-marker"></i> {this.props.address.firstLine}<br/>
                   {this.props.address.city },{this.props.address.state } - {this.props.address.pincode} <br/>
                 <i class="fa fa-phone"></i>: {this.props.contacts.telephoneNumber}<br/>
-                <i class="fa fa-fax"></i>: {this.props.contacts.hospitalFax}<br/>
-                <i class="fa fa-laptop"></i>Website - <a href={hospitalWebsite} target="_blank">{this.props.contacts.hosptialWebSite}</a><br/>
+                <i class="fa fa-fax"></i>: {this.props.contacts.fax}<br/>
+                <i class="fa fa-laptop"></i>Website - <a href={hospitalWebsite} target="_blank">{this.props.contacts.website}</a><br/>
                 <i className="fa fa-envelope"></i> <a
-                  href={this.props.contacts.hospitalEmailId}>{this.props.contacts.hospitalEmailId}</a>
+                  href={this.props.contacts.emailId}>{this.props.contacts.emailId}</a>
               </address>
 						</div>
 				</div>

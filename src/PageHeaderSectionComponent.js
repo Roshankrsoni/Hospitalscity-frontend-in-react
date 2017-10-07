@@ -42,6 +42,10 @@ class PageHeaderSectionComponent extends Component {
     this.props.onChange(selectedValue);
   }
 
+  handleSearchKey(e) {
+    
+  }
+
   render() {
 
     var options = this.state.options;
@@ -54,7 +58,21 @@ class PageHeaderSectionComponent extends Component {
                   <hr/>
                   <Grid>
                     <Row>
-                       <Col md={4} mdOffset={4}>
+                       <Col md={3} mdOffset={2}>
+                         <form>
+                            <div className="form-group">
+                              <Typeahead labelKey="SearchBox" onChange={this.handleChange}  id="searchBoxTypeHead" options={options} className="form-control" placeholder="CityName" />
+                            </div>
+                         </form>
+                       </Col>
+                       <Col  md={3}>
+                         <form>
+                            <FormGroup>
+                              <FormControl type="text" placeholder="Search hostpial Name, Specialties, Facilities" value={this.state.searchKey} onChange={this.handleSearchKey} />
+                            </FormGroup>
+                         </form>
+                       </Col>
+                       <Col md={2}>
                          <form>
                             <div className="form-group">
                               <Typeahead labelKey="SearchBox" onChange={this.handleChange}  id="searchBoxTypeHead" options={options} className="form-control" placeholder="CityName" />

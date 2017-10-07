@@ -23,8 +23,8 @@ class HospitalDescriptionComponent extends React.Component {
   render() {
 
     var specialityComponents = [];
-    for(var i=0; i < this.props.hospital.specilites.length; i++) {
-      var speciality = this.props.hospital.specilites[i];
+    for(var i=0; i < this.props.hospital.specialties.length; i++) {
+      var speciality = this.props.hospital.specialties[i];
       specialityComponents.push(
         <li key={speciality}>
           <a>
@@ -35,8 +35,8 @@ class HospitalDescriptionComponent extends React.Component {
     }
 
     var facilityComponents = [];
-    for(var i=0; i < this.props.hospital.facilies.length; i++) {
-      var facility = this.props.hospital.facilies[i];
+    for(var i=0; i < this.props.hospital.facilities.length; i++) {
+      var facility = this.props.hospital.facilities[i];
       facilityComponents.push(
         <li key={facility}>
           <a>
