@@ -19,7 +19,7 @@ class HospitalReviewComponent extends React.Component {
   }
 
   componentDidMount() {
-    fetch(constants.SERVER_URL + 'HospitalRatingRESTServer/apsyrestapi/hospital/GetHospitalById/' + this.props.hospital.uid)
+    fetch(constants.REST_API_URL + '/hospital/GetHospitalById/' + this.props.hospital.uid)
      .then(result=>result.json())
      .then(item=> {
        this.setState({reviewComments: item.reviews});
@@ -32,7 +32,7 @@ class HospitalReviewComponent extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    var reviewUrl = constants.SERVER_URL + 'HospitalRatingRESTServer/apsyrestapi/hospital/addHospitalReview/' + this.props.hospital.uid;
+    var reviewUrl = constants.SERVER_URL + '/hospital/addHospitalReview/' + this.props.hospital.uid;
     fetch(reviewUrl, {
        method: 'POST',
        headers: {

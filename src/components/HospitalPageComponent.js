@@ -15,8 +15,8 @@ class HospitalPageComponent extends React.Component {
       hospitalId : props.hospitalId,
       hospital : {
         name: '',
-        specilites: [],
-        facilies: [],
+        specialties: [],
+        facilities: [],
         address: '',
         contactDetails: ''
       }
@@ -24,9 +24,10 @@ class HospitalPageComponent extends React.Component {
   }
 
   componentDidMount() {
-    fetch(constants.SERVER_URL + 'HospitalRatingRESTServer/apsyrestapi/hospital/GetHospitalById/' + this.state.hospitalId)
+    fetch(constants.REST_API_URL + '/hospital/GetHospitalById/' + this.state.hospitalId)
      .then(result=>result.json())
      .then(item=> {
+       console.log(item);
        this.setState({hospital: item});
      });
   }
@@ -60,7 +61,7 @@ class HospitalPageComponent extends React.Component {
                 </Row>
                 <Row>
                   <Col sm={12}>
-                    <HospitalMapComponent location={this.state.hospital.hospitalGeoCoordinate} name={this.state.hospital.name}/>
+                    <HospitalMapComponent location={this.state.hospital.location} name={this.state.hospital.name}/>
                   </Col>
                 </Row>
                 <Row>
