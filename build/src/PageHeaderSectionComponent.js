@@ -57,7 +57,7 @@ class PageHeaderSectionComponent extends Component {
     this.props.onChange(
       {
         cityName: this.state.cityName,
-        searchKey: this.state.searchKey
+        searchKey: this.state.searchKey        
       }
     );
   }
@@ -74,7 +74,7 @@ class PageHeaderSectionComponent extends Component {
                   <hr/>
                   <Grid>
                     <Row>
-                       <Col  md={3} mdOffset={3}>
+                       <Col  md={2} mdOffset={3}>
                           <Form>
                             <FormGroup >
                               <Typeahead labelKey="SearchBox" onChange={this.handleCityChange}  id="searchBoxTypeHead" options={options} className="form-control" placeholder="CityName" />
@@ -98,7 +98,7 @@ class PageHeaderSectionComponent extends Component {
                        <Col md={2}>
                          <form>
                             <div className="form-group">
-
+                              
                             </div>
                          </form>
                        </Col>

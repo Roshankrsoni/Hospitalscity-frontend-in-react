@@ -63,7 +63,7 @@ class HospitalsComponent extends React.Component {
   }
 
   componentDidMount() {
-    fetch(constants.REST_API_URL + "/hospital/GetHospitalBySearch/" + this.state.cityName + ((this.state.searchKey) ? ("?searchKey=" + this.state.searchKey) : ""))
+    fetch(constants.REST_API_URL + "/hospital/GetHospitalBySearch/" + this.state.cityName + "?searchKey=" + this.state.searchKey)
      .then(result=>result.json())
      .then(items=> {
        console.log(items);
