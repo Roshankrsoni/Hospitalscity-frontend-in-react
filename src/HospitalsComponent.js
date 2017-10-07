@@ -54,6 +54,7 @@ class HospitalsComponent extends React.Component {
     super(props);
     this.state = { hospitals : [], cityName: ''};
     this.state.cityName = this.props.cityName;
+    this.state.searchKey = this.props.searchKey;
     this.handleHospitalViewClick = this.handleHospitalViewClick.bind(this);
   }
 
@@ -62,7 +63,7 @@ class HospitalsComponent extends React.Component {
   }
 
   componentDidMount() {
-    fetch(constants.REST_API_URL + "/hospital/GetHospitalByCity/" + this.state.cityName)
+    fetch(constants.REST_API_URL + "/hospital/GetHospitalBySearch/" + this.state.cityName + "?searchKey=" + this.state.searchKey)
      .then(result=>result.json())
      .then(items=> {
        console.log(items);

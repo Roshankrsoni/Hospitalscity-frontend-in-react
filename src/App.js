@@ -16,7 +16,10 @@ class App extends Component {
     super(props);
 
     this.state = { currentViewName : "BaseView",
-                   searchResult: '',
+                   searchResult: {
+                     cityName: '',
+                     searchKey: ''
+                   },
                    hospitalId: ''
                  };
 
@@ -57,7 +60,7 @@ class App extends Component {
       case "BaseView":
         return <BasePageComponent handleSearchResult={this.handleSearchResult}/>
       case "HospitalsView":
-        return <HospitalsComponent cityName={this.state.searchResult} handleSelectedHospital={this.handleSelectedHospital}/>
+        return <HospitalsComponent cityName={this.state.searchResult.cityName} searchKey={this.state.searchResult.searchKey} handleSelectedHospital={this.handleSelectedHospital}/>
       case "HospitalDetailView":
         console.log(this.state.hospitalId)
         return <HospitalPageComponent hospitalId={this.state.hospitalId} />
